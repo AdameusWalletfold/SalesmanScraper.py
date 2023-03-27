@@ -1,0 +1,30 @@
+Index: Menu2.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Menu2.py b/Menu2.py
+--- a/Menu2.py	
++++ b/Menu2.py	(date 1674090763535)
+@@ -9,7 +9,7 @@
+ # function that prepares the URL with the parameters given by
+ # the client
+ 
+-def Preparator(BaseUrl, MinPrice, MaxPrice, brand, status):
++def Preparator(BaseUrl, status):
+     MaxPrice = input("What is the most you are willing to pay?: ")
+     MinPrice = input("What is the least you are willing to pay?: ")
+     brand = input("What brand are you interested in?: ")
+@@ -84,8 +84,8 @@
+ 
+ # Run the whole process given certain parameters:
+ 
+-FUrl = Preparator(BaseUrl, 1500, 100000, 'audi', 'new')
++    FUrl = Preparator(BaseUrl, 1500, 100000, 'audi', 'new')
+ 
+-GetData(FUrl)
++    GetData(FUrl)
+ 
+-SaveData(AllCarsOutput)
+\ No newline at end of file
++    SaveData(AllCarsOutput)
