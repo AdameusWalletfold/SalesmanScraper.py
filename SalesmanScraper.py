@@ -16,7 +16,7 @@ s = Service("C:/ProgramFiles/Google/Chrome/Application/chromedriver.exe")
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument("--window-size=1920x1080")
-
+options.add_argument("--headless")
 driver = webdriver.Chrome(service=s, options=options)
 
 # User input for Cars.com Search form
