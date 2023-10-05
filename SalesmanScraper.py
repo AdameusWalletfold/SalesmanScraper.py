@@ -10,7 +10,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 
-s = Service("C:/ProgramFiles/Google/Chrome/Application/chromedriver.exe")
+s = Service("C:/Program Files/Google/Chrome/Application/chromedriver.exe")
 
 # Webdriver options
 options = webdriver.ChromeOptions()
@@ -20,8 +20,9 @@ options.add_argument("--headless")
 driver = webdriver.Chrome(service=s, options=options)
 
 # User input for Cars.com Search form
-stockInput = input("Please enter a number \n0: New & Used Cars \n1: New & Certified Cars \n2: New Cars \n3: Used "
-                   "Cars \n4: Certified Cars\n")
+print("0 > New & Used Cars \n1 > New & Certified Cars \n2 > New Cars \n3 > Used "
+      "Cars \n4 > Certified Cars\n")
+stockInput = input("Please select an option: ")
 if stockInput not in ["0", "1", "2", "3", "4"]:
     stockInput = input('Invalid input. Please choose an option from numbers 1-4: ')
 
@@ -75,13 +76,13 @@ carList = []
 
 while True:
     try:
-    # Find all car listings on the current page
+        # Find all car listings on the current page
         next_btn = driver.find_element(By.XPATH, "//a[@aria-label='Next page']")
 
         cars = driver.find_elements(By.XPATH, '//div[@class="vehicle-card   "]')
 
         for car in cars:
-        # Extract information from each car listing
+            # Extract information from each car listing
             try:
                 title = car.find_element(By.XPATH, './/h2[@class="title"]').text
             except:
@@ -103,27 +104,26 @@ while True:
             except:
                 miles_from = None
 
-        # Append the extracted information to the carList
+            # Append the extracted information to the carList
             carList.append({'Title': title,
                             'Price': price,
                             'Condition': condition,
                             'Mileage': mileage,
                             'Miles from': miles_from})
 
-    # Click the "Next" button to go to the next page
+        # Click the "Next" button to go to the next page
         next_btn.click()
 
-    # Wait for the next page to load
+        # Wait for the next page to load
         WebDriverWait(driver, 20).until(EC.url_changes(url2))
 
     except StaleElementReferenceException:
         next_btn = driver.find_element(By.XPATH, "//a[@aria-label='Next page']")
         continue
 
-# Create pandas dataframe from the list of all results
+    # Create pandas dataframe from the list of all results
     carList_df = pd.DataFrame(carList)
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_colwidth', None)
     pd.set_option('display.max_rows', None)
     print(carList_df)
-
